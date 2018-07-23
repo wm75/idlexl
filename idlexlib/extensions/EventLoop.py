@@ -67,7 +67,7 @@ eventloop-toggle=<Key-F7>
 INTERVAL = 100          # milliseconds
 INSTALL_DELAY = 250     # milliseconds
 
-from idlelib.configHandler import idleConf
+from idlelib.config import idleConf
 
 import sys
 if sys.version < '3':
@@ -76,8 +76,8 @@ else:
     from tkinter import *
 
 
-import idlelib.PyShell as PyShell
-import idlelib.ToolTip as ToolTip
+import idlelib.pyshell as PyShell
+import idlelib.tooltip as ToolTip
 import threading
 import time
 

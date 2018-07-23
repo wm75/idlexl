@@ -68,7 +68,7 @@ if sys.version < '3':
 else:
     from tkinter import INSERT, END, SEL_FIRST, SEL_LAST, SEL
 
-from idlelib.configHandler import idleConf
+from idlelib.config import idleConf
 
 class Terminal:
 
@@ -86,8 +86,8 @@ class Terminal:
                                           "terminal", type="bool", default=True)
         self.editwin.setvar("<<terminal-toggle>>", not not self.enabled)
 
-        # this extension is loaded from EditorWindow.py, but before
-        # PyShell.py makes its changes. Will use tk .after to make
+        # this extension is loaded from idlelib.editor, but before
+        # idlelib.pyshell makes its changes. Will use tk .after to make
         # changes
 
         self.last_insert = 'end-1c'

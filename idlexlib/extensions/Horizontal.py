@@ -38,7 +38,7 @@ else:
 
 
 # get the IDLE configuration handler
-from idlelib.configHandler import idleConf
+from idlelib.config import idleConf
 
 class Horizontal:   # must be the same name as the file for EditorWindow.py
                     # to load it.
@@ -53,7 +53,7 @@ class Horizontal:   # must be the same name as the file for EditorWindow.py
         self.text = text = self.editwin.text
         self.text.bind("<<horizontal-show>>", self.show_toggle)
 
-        # See __init__ in EditorWindow.py to understand
+        # See __init__ in idlelib.editor.py to understand
         # the widget layout
         self.xbar = xbar = tk.Scrollbar(editwin.text_frame,
                          orient=tk.HORIZONTAL)  # create the scroll bar

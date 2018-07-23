@@ -65,11 +65,11 @@ else:
     from tkinter import *
 
 
-from idlelib.configHandler import idleConf
-from idlelib.Delegator import Delegator
-from idlelib.Percolator import Percolator
-from idlelib.ColorDelegator import ColorDelegator
-from idlelib.ToolTip import ToolTip
+from idlelib.config import idleConf
+from idlelib.delegator import Delegator
+from idlelib.percolator import Percolator
+from idlelib.colorizer import ColorDelegator
+from idlelib.tooltip import ToolTip
 import re
 
 
@@ -116,7 +116,7 @@ class CodeBrowser:
     def font_timer_event(self):
         if self.hidden:
             return
-        # taken from CodeContext.py
+        # taken from idlelib.codecontext.py
         newtextfont = self.editwin.text["font"]
         if self.textln and newtextfont != self.textfont:
             self.textfont = newtextfont

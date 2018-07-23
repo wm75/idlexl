@@ -24,8 +24,8 @@ enable_editor=0
 enable_shell=1
 """
 
-from idlelib.configHandler import idleConf
-from idlelib.Delegator import Delegator
+from idlelib.config import idleConf
+from idlelib.delegator import Delegator
 import time
 import re
 import sys
@@ -57,7 +57,7 @@ class MultiLineDelegator(Delegator):
 
 class MultiLineRun:
 
-    # eol code from IOBinding.py
+    # eol code from idlelib.iomenu
     eol = r"(\r\n)|\n|\r"  # \r\n (Windows), \n (UNIX), or \r (Mac)
     eol_re = re.compile(eol)
 

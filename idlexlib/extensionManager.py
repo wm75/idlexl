@@ -57,7 +57,7 @@ try:
 except ImportError:
     HAS_IMPORTLIB = False
 
-from idlelib.configHandler import idleConf, IdleConfParser
+from idlelib.config import idleConf, IdleConfParser
 import os
 
 def make_config_parser(cfg):

@@ -55,13 +55,13 @@ paste-code-only=
 
 
 # get the IDLE configuration handler
-from idlelib.configHandler import idleConf
-from idlelib.EditorWindow import classifyws
+from idlelib.config import idleConf
+from idlelib.editor import classifyws
 import re
 
 class PastePyShell:
 
-    # A more proper place is to add the menu entry in "Bindings.py"
+    # A more proper place is to add the menu entry in idlelib.mainmenu
     # just after "Paste" under "edit".
     menudefs = [
         ('edit', [
@@ -208,8 +208,8 @@ class PastePyShellProcessor:
 ##        else:
 ##            return chars
 
-    def _make_blanks(self, n):   # from EditorWindow.py
-        # copied over in case EditorWindow's implementation changes.
+    def _make_blanks(self, n):   # from idlelib.editor.py
+        # copied over in case editor's implementation changes.
         if self.usetabs:
             ntabs, nspaces = divmod(n, self.tabwidth)
             return '\t' * ntabs + ' ' * nspaces

@@ -51,7 +51,7 @@ from __future__ import print_function
 ##        - does not restart shell
 ##
 ##    To properly patch the idlelib source tree, you'd need to modify
-##    EditorWindow.py's "ispythonsource" to include .pyx files as well as create
+##    editor.py's "ispythonsource" to include .pyx files as well as create
 ##    an appropriate color delegator. Since this is not
 ##    likely to be accepted into IDLE, I'll stick to small monkey-patching.
 ##
@@ -75,10 +75,10 @@ import sys
 import os
 import re
 import time
-from idlelib import PyShell
-from idlelib.ColorDelegator import ColorDelegator, make_pat
-from idlelib.configHandler import idleConf
-import idlelib.IOBinding
+from idlelib import pyshell as PyShell
+from idlelib.colorizer import ColorDelegator, make_pat
+from idlelib.config import idleConf
+import idlelib.iomenu
 import imp
 
 DEBUG = False
@@ -139,8 +139,8 @@ def dbprint(*args, **kwargs):
 
 
 if HAS_CYTHON or True:
-    # add to filetypes in IOBinding
-    f = idlelib.IOBinding.IOBinding.filetypes
+    # add to filetypes in idlelib.iomenu
+    f = idlelib.iomenu.IOBinding.filetypes
     f.insert(1, ("Cython files", "*.pyx"))
     f.insert(0, ("Python/Cython files", "*.py *.pyw *.pyx", "TEXT"))
 
@@ -257,7 +257,7 @@ class CythonScript(object):
 
 
     def ispythonsource(self, filename):
-        """ Patch to EditorWindow's ispythonsource to detect .pyx files """
+        """ Patch to idlelib.editor.ispythonsource to detect .pyx files """
         # The ResetColorizer code calls into ispythonsource. Trick it.
         if filename:
             base, ext = os.path.splitext(os.path.basename(filename))

@@ -58,8 +58,8 @@ preview-last-squeezed=<Control-Key-minus>
 """
 
 import re
-from idlelib.PyShell import PyShell
-from idlelib.configHandler import idleConf
+from idlelib.pyshell import PyShell
+from idlelib.config import idleConf
 
 import sys
 

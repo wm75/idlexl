@@ -38,14 +38,14 @@ docviewer-window=
 #   - sanitize command input box
 
 
-from idlelib.configHandler import idleConf
-import idlelib.IOBinding as IOBinding
-from idlelib.EditorWindow import EditorWindow
-from idlelib.OutputWindow import OutputWindow
-from idlelib.Delegator import Delegator
-from idlelib.HyperParser import HyperParser
-import idlelib.WindowList as WindowList
-import idlelib.SearchDialog as SearchDialog
+from idlelib.config import idleConf
+import idlelib.iomenu as IOBinding
+from idlelib.editor import EditorWindow
+from idlelib.outwin import OutputWindow
+from idlelib.delegator import Delegator
+from idlelib.hyperparser import HyperParser
+import idlelib.windows as WindowList
+import idlelib.search as SearchDialog
 import time
 import sys
 if sys.version < '3':

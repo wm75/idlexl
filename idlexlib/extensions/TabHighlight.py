@@ -53,8 +53,8 @@ tab-highlight-toggle=
 """
 
 
-from idlelib.configHandler import idleConf
-from idlelib.Delegator import Delegator
+from idlelib.config import idleConf
+from idlelib.delegator import Delegator
 
 EXTNAME = "TabHighlight"
 

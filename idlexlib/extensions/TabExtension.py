@@ -68,13 +68,13 @@ else:
 
 
 
-import idlelib.EditorWindow as EditorWindow
-import idlelib.WindowList as WindowList
-from idlelib.ToolTip import ToolTipBase
-import idlelib.ToolTip as ToolTip
-import idlelib.FileList as FileList
-import idlelib.Bindings as Bindings
-from idlelib.configHandler import idleConf
+import idlelib.editor as EditorWindow
+import idlelib.windows as WindowList
+from idlelib.tooltip import ToolTipBase
+import idlelib.tooltip as ToolTip
+import idlelib.filelist as FileList
+import idlelib.mainmenu as Bindings
+from idlelib.config import idleConf
 from platform import python_version
 
 TAB_BAR_SIDE = 'top'  # 'bottom'

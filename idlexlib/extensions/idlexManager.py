@@ -62,8 +62,8 @@ else:
     import tkinter.messagebox as tkMessageBox
     StandardError = Exception
 
-from idlelib.configHandler import idleConf, IdleConfParser
-import idlelib.textView as textView
+from idlelib.config import idleConf, IdleConfParser
+import idlelib.textview as textView
 import webbrowser
 
 
@@ -133,7 +133,7 @@ class idlexManager(object):
         f.insert_command(2, label="Configure Extensions...", command=command)
 
 class idlexAbout(Toplevel):
-    # some code borrowed from aboutDialog.py, covered by the PSF License.
+    # some code borrowed from idlelib.aboutDialog, covered by the PSF License.
     def __init__(self, parent):
         Toplevel.__init__(self, parent)
         title = 'About IdleX'# (version %s)' % __version__

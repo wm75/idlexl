@@ -68,8 +68,8 @@ subcode-toolbar-minus=<Control-Key-minus> <Control-Shift-Key-minus>
 """
 
 import re
-from idlelib.configHandler import idleConf
-from idlelib import macosxSupport
+from idlelib.config import idleConf
+from idlelib import macosx
 
 import sys
 if sys.version < '3':
@@ -77,7 +77,7 @@ if sys.version < '3':
 else:
     from tkinter import *
 
-import idlelib.ToolTip as ToolTip
+import idlelib.tooltip as ToolTip
 from . import SubCode
 
 SUBCODE_STR = SubCode.SUBCODE_STR
@@ -162,7 +162,7 @@ class SubCodeToolbar(object):
         f = Frame(top)
         widgets = self.editwin.top.pack_slaves()
         widgets = list(widgets) # list for Python 3 support
-        f.pack(side='top', fill=X, before=widgets[0])  # make toolbar play nicely with CodeContext
+        f.pack(side='top', fill=X, before=widgets[0])  # make toolbar play nicely with idlelib.codecontext
 
 
         f.config(height=8)

@@ -27,9 +27,9 @@ else:
 from pprint import pprint
 
 # get the IDLE configuration handler
-from idlelib.configHandler import idleConf
-from idlelib import macosxSupport
-from idlelib.PyShell import PyShell
+from idlelib.config import idleConf
+from idlelib import macosx as macosxSupport
+from idlelib.pyshell import PyShell
 
 
 # A right-click menu has been added. See http://bugs.python.org/issue1207589
@@ -65,7 +65,7 @@ class RightClickMenu:   # must be the same name as the file for EditorWindow.py
         e = self.editwin
         m = e.rmenu_specs
 ##        try:
-##            # This functionality in OutputWindow.py
+##            # This functionality in idlelib.outwin
 ##            # requires the cursor to leave the input area in the shell.
 ##            # IDLE should not do that.
 ##            m.remove(('Go to file/line', '<<goto-file-line>>'))

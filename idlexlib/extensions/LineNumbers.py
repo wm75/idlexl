@@ -60,9 +60,9 @@ if sys.version < '3':
 else:
     from tkinter import END, Text, LEFT, Y, NONE, RIGHT, NORMAL, DISABLED, Label, TOP, Frame, X
 
-from idlelib.configHandler import idleConf
-from idlelib.Delegator import Delegator
-from idlelib.Percolator import Percolator
+from idlelib.config import idleConf
+from idlelib.delegator import Delegator
+from idlelib.percolator import Percolator
 
 
 FONTUPDATEINTERVAL = 1000   # milliseconds
@@ -105,7 +105,7 @@ class LineNumbers(object):
 
     def adjust_font(self):
         try:
-            # taken from CodeContext.py
+            # taken from idlelib.codecontext.py
             newtextfont = self.editwin.text["font"]
             if self.textln and newtextfont != self.textfont:
                 self.textfont = newtextfont
@@ -185,7 +185,8 @@ class LineNumbers(object):
 
         lines = LineNumberDelegator(self)
         if _AFTER_UNDO:
-            # Percolator.py's .insertfilter should have an "after=" argument
+            # idlelib.percolator's .insertfilter should have an
+            # "after=" argument
             lines.setdelegate(editwin.undo.delegate)
             editwin.undo.setdelegate(lines)
         else:
