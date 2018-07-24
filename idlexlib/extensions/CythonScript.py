@@ -140,9 +140,13 @@ def dbprint(*args, **kwargs):
 
 if HAS_CYTHON or True:
     # add to filetypes in idlelib.iomenu
-    f = idlelib.iomenu.IOBinding.filetypes
+    # https://github.com/python/cpython/pull/3847 has turned
+    # idlelib.iomenu.IOBinding.filetypes into a tuple instead of a list
+    # so we need to do an extra conversion dance here.
+    f = list(idlelib.iomenu.IOBinding.filetypes)
     f.insert(1, ("Cython files", "*.pyx"))
     f.insert(0, ("Python/Cython files", "*.py *.pyw *.pyx", "TEXT"))
+    idlelib.iomenu.IOBinding.filetypes = tuple(f)
 
 
 class CythonScript(object):
