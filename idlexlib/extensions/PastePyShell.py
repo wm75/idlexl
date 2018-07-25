@@ -109,7 +109,12 @@ class PastePyShell:
         except Exception:
             return "break"
 
-        pc = PastePyShellProcessor(comments=comments)
+        # create a processor that uses the editor window's
+        # indentation settings
+        pc = PastePyShellProcessor(
+            tabwidth=editwin.indentwidth,
+            usetabs=editwin.usetabs,
+            comments=comments)
         res = pc._paste_process(chars)
         text.insert('insert', res)
         return "break"
