@@ -83,24 +83,10 @@ class ClearWindow:
         return "break"
 
     def clear_window(self, event):
-
         per = self.editwin.per
         text = per.bottom
         
-        iomark_orig = text.index('iomark')
-        line_io, col_io = sp(iomark_orig)
-
-        # if cursor is at the prompt, preserve the prompt (multiline)
-        prompt = strip_ansi(sys.ps1)
-        backlines = prompt.count('\n')
-        prompt_start = jn(line_io-backlines, 0)
-        maybe_prompt = text.get(prompt_start, prompt_start + '+%ic' % len(prompt))
-        at_prompt = maybe_prompt == prompt
-
-        if at_prompt:
-            endpos = text.index(prompt_start)
-        else:
-            endpos = text.index('iomark linestart')
+        endpos = self._find_last_prompt_start()
 
         dump = text.dump('1.0', endpos, all=True)
 
@@ -112,7 +98,22 @@ class ClearWindow:
 
         text.edit_reset() # clear out Tkinter's undo history
 
-        
+    def _find_last_prompt_start(self):
+        # taken from the proposed patch
+        # https://bugs.python.org/file34145/taleinat.20140219.IDLE_ClearWindow_extension.patch
+        # by Tal Einat
+
+        try:
+            return self.editwin.text.index("iomark linestart")
+        except TclError as exc:
+            if exc.args[0].startswith('bad text index'):
+                # there is no 'iomark' tag in the Text widget
+                raise Exception(
+                    'ClearWindow could not find the last prompt!')
+            else:
+                raise
+
+
 class ClearWindowDeleteCommand(DeleteCommand):
     def __init__(self, index1, index2, dump):
         DeleteCommand.__init__(self, index1, index2)
