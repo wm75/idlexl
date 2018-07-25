@@ -36,7 +36,7 @@
 ##
 ##    LineNumbers Extension
 ##
-##    Provides line numbers to the left of the source code.
+##    Provides line numbers to the right of the source code.
 ##
 ##    The width of the line numbers adapts. Limit of 99,999 lines (for proper display).
 ##
@@ -96,8 +96,6 @@ class LineNumbers(object):
                                "visible", type="bool", default=True)
         self.set_visible(e)
 
-        self.code_context_fix()
-
     def close(self):
         if self.after_id:
             self.text.after_cancel(self.after_id)
@@ -110,8 +108,6 @@ class LineNumbers(object):
             if self.textln and newtextfont != self.textfont:
                 self.textfont = newtextfont
                 self.textln["font"] = self.textfont
-                if self._cc_text:
-                    self._cc_text["font"] = self.textfont
             self.update_numbers()
         except Exception as err:
             import traceback; traceback.print_exc()
@@ -146,15 +142,19 @@ class LineNumbers(object):
 
     def linenumbers_show_event(self, ev=None):
         self.set_visible(not self.visible)
-        self._code_context_toggle()
 
     def create_linenumbers(self):
         """ Create the widget for displaying line numbers. """
+        colors = idleConf.GetHighlight(idleConf.CurrentTheme(), 'stdout')
         editwin = self.editwin
         text = self.text
         text_frame = editwin.text_frame
-        self.textln = textln = Text(text_frame, width=self.width,
-                                    height=1, wrap=NONE)
+        self.textln = textln = Text(
+            text_frame,
+            bg=colors['background'],
+            fg=colors['foreground'],
+            width=self.width,
+            height=1, wrap=NONE, highlightthickness=0)
 
         # adjust font
         textln.config(font=(idleConf.GetOption('main', 'EditorWindow', 'font'),
@@ -207,7 +207,7 @@ class LineNumbers(object):
         return "break"
 
     def show(self):
-        self.textln.pack(side=LEFT, fill=Y, before=self.editwin.text)
+        self.textln.pack(side=RIGHT, fill=Y, before=self.editwin.text)
 
     def hide(self):
         self.textln.pack_forget()
@@ -270,62 +270,10 @@ class LineNumbers(object):
         if width > self.width:  # 2011-12-18 - only grow, not shrink
             self.width = width
             textln.configure(width=width)
-            if self._cc_text:  # adjust CC width
-                self._cc_text.configure(width=width)
 
         self.textln.update_idletasks()
         a = self.text.yview()
         self.textln.yview_moveto(a[0])
-
-    def code_context_fix(self):
-        self._cc_text = None
-        self._cc_frame = None
-        def f():
-            self.text.bind('<<toggle-code-context>>', self._code_context_toggle, '+')
-            self._code_context_toggle()
-        self.text.after(10, f)
-
-    def _code_context_toggle(self, event=None):
-        cc = self.editwin.extensions.get('CodeContext', None)
-        if cc is None:
-            return
-
-        if not self.visible:
-            if self._cc_frame:
-                L = cc.label
-                L.pack_forget()
-                self._cc_frame.destroy()
-                L.pack(side=TOP, fill=X, expand=False,
-                       before=self.editwin.text_frame)
-            return
-
-
-        editwin = self.editwin
-        text = self.text
-        text_frame = editwin.text_frame
-
-        # repack the Label in a frame
-        if cc.label:
-            cc.label.pack_forget()
-            F = Frame(self.editwin.top)
-            F.lower() # fix Z-order
-            t = Text(F, width=self.width, height=1,
-                     takefocus=0)
-            t.bind("<FocusIn>", lambda x: self.text.focus())
-            t["font"] = self.textln.cget('font')
-            t.pack(side=LEFT, fill=Y)
-            cc.label.pack(in_=F, fill=X, expand=False)
-
-            F.pack(side=TOP, before=text_frame, fill=X, expand=False)
-            self._cc_frame = F
-            self._cc_text = t
-        else:
-            if self._cc_frame:
-                self._cc_frame.destroy()
-                self._cc_frame = None
-                self._cc_text = None
-
-
 
 
 class LineNumberDelegator(Delegator):
