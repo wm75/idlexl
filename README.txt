@@ -1,38 +1,33 @@
 
-IdleX - IDLE Extensions for Python
+IdleXL - IDLE Extensions for Python
 ==================================
 
-Version 1.13
+Version 1.0
 
-developer:   Roger D. Serwy (RDS)
-email:       serwy@illinois.edu
-web:         http://idlex.sourceforge.net
-
-IdleX works with Python 2.6, 2.7, and 3.x.
+IdleXL is a port of IdleX, developed by Roger D. Serwy, to Python 3.6+.
 
 
 Installing IdleX
 ================
 
-This is optional. You may run idlex.py directly without installing.
-
-  python setup.py install --user
+Use *pip* to install IdleXL directly from pypi.
 
 
 Running IdleX
 =============
 
 On Windows:
-    1) Extract the contents of the idlex-x.x.zip file.
-    2) Double-click "idlex.py" to launch IdleX.
-    3) Run "scripts/EditWithIdleX.py" if you want 'Edit with IdleX'
+    1) Open a console window.
+    2) Run:
+        py -3 -m idlexl
+    Optional:
+       Run "scripts/EditWithIdleX.py" if you want 'Edit with IdleX'
        in the right-click context menu.
 
 On Linux:
     1) Open a terminal.
-    2) Change into the idlex directory.
     3) Run:
-        $ python idlex.py
+        $ python3 -m idlexl
 
 
 Demos
